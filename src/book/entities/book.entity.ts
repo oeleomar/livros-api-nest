@@ -1,15 +1,14 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { AbstractEntity } from 'src/common/entities';
+import { Column, Entity } from 'typeorm';
 
-export class Book {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
+@Entity({ name: 'books' })
+export class Book extends AbstractEntity {
+  @Column({ nullable: false })
   name: string;
 
-  @Column()
+  @Column({ nullable: false })
   author: string;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   isbn: string;
 }
