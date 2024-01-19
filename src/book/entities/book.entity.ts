@@ -1,8 +1,18 @@
-import { AbstractEntity } from 'src/common/entities';
-import { Column, Entity } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'books' })
-export class Book extends AbstractEntity {
+export class Book {
+  @PrimaryGeneratedColumn('uuid')
+  public id: string;
+
+  @CreateDateColumn()
+  public createdAt: Date;
+
   @Column({ nullable: false })
   name: string;
 
@@ -11,4 +21,12 @@ export class Book extends AbstractEntity {
 
   @Column({ unique: true, nullable: false })
   isbn: string;
+
+  constructor(partial: Partial<Book>) {
+    this.id = partial?.id;
+    this.createdAt = partial?.createdAt;
+    this.name = partial?.name;
+    this.author = partial?.author;
+    this.isbn = partial?.isbn;
+  }
 }

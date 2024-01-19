@@ -21,8 +21,8 @@ export class BookController {
   }
 
   @Get()
-  asyncfindAll() {
-    return this.bookService.findAll();
+  async asyncfindAll() {
+    return await this.bookService.findAll();
   }
 
   @Patch(':id')
