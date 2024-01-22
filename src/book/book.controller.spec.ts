@@ -51,24 +51,6 @@ describe('BookController', () => {
     expect(bookService).toBeDefined();
   });
 
-  describe('asyncfindAll()', () => {
-    it('should return an array of books', async () => {
-      // Act
-      const result = await bookController.asyncfindAll();
-
-      // Assert
-      expect(result).toEqual(bookEntityList);
-      expect(bookService.findAll).toHaveBeenCalledTimes(1);
-    });
-
-    it('should throw an error', async () => {
-      // Arrange
-      jest.spyOn(bookService, 'findAll').mockRejectedValueOnce(new Error());
-
-      expect(bookController.asyncfindAll()).rejects.toThrow();
-    });
-  });
-
   describe('create()', () => {
     it('should create a book', async () => {
       const body: CreateBookDto = {

@@ -6,10 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
+import { Book } from './entities/book.entity';
 
 @Controller('api/book')
 export class BookController {
@@ -21,8 +26,16 @@ export class BookController {
   }
 
   @Get()
-  async asyncfindAll() {
-    return await this.bookService.findAll();
+  async asyncfindAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 6
+    ): Promise<Pagination<Book>> {
+      const options: IPaginationOptions = {
+        limit,
+        page,
+      };
+
+    return await this.bookService.paginate({...options, route: 'https://api-book.eleomardorneles.com.br/api/book'});
   }
 
   @Patch(':id')
