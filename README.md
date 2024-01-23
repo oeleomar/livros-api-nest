@@ -15,9 +15,9 @@ API Information:
 
 Requisitos
 
-[x] Usar MySQL
-[x] Criar uma paginação (server-side)
-[x] API CRUD simples
-[x] Utilizar Nest.js
-[x] Campos obrigatórios: nome, autor, ISBN
+- [x] Usar MySQL
+- [x] Criar uma paginação (server-side)
+- [x] API CRUD simples
+- [x] Utilizar Nest.js
+- [x] Campos obrigatórios: nome, autor, ISBN
 """
