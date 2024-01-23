@@ -16,7 +16,7 @@ export class BookService {
 
   async create(createBookDto: CreateBookDto) {
     //verificar string atraves de um regex
-    if(regexISBN.test(createBookDto.isbn) === false) {
+    if(regexISBN.test(createBookDto.isbn.replaceAll('-', '')) === false) {
       return new BadRequestException('ISBN inválido');
     }
 
@@ -48,7 +48,7 @@ export class BookService {
     if (Object.keys(updateBookDto).length === 0)
       return new BadRequestException('Nenhum dado para atualizar');
 
-    if(regexISBN.test(updateBookDto.isbn) === false) {
+    if(regexISBN.test(updateBookDto.isbn.replaceAll('-', '')) === false) {
       return new BadRequestException('ISBN inválido');
     }
 
