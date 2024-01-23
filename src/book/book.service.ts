@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './entities/book.entity';
 import { Repository } from 'typeorm';
 import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { regexISBN } from 'src/utils/regex-ISBN';
 
 @Injectable()
 export class BookService {
@@ -14,6 +15,11 @@ export class BookService {
   ) {}
 
   async create(createBookDto: CreateBookDto) {
+    //verificar string atraves de um regex
+    if(regexISBN.test(createBookDto.isbn) === false) {
+      return new BadRequestException('ISBN inválido');
+    }
+
     try {
       const book = this.bookRepository.create(createBookDto);
 
@@ -41,6 +47,10 @@ export class BookService {
   async update(id: string, updateBookDto: UpdateBookDto) {
     if (Object.keys(updateBookDto).length === 0)
       return new BadRequestException('Nenhum dado para atualizar');
+
+    if(regexISBN.test(updateBookDto.isbn) === false) {
+      return new BadRequestException('ISBN inválido');
+    }
 
     try {
       return await this.bookRepository.update(id, updateBookDto);

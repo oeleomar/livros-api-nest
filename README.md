@@ -20,4 +20,5 @@ Requisitos
 - [x] API CRUD simples
 - [x] Utilizar Nest.js
 - [x] Campos obrigatórios: nome, autor, ISBN
-"""
+
+OBS: Testes unitários implementados parcialmente.
